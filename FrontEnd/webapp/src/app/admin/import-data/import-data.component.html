@@ -1,0 +1,55 @@
+<div class="row justify-content-center bg-white p-3" *ngIf="uploading">
+    <div class="col-sm-4">
+        Select Excel file to be uploaded
+    </div>
+    <div class="col-sm-8 form-group">
+        <input type="file" (change)="uploadedFile($event)" placeholder="Upload file" accept=".xlsx">
+        <button *ngIf="showdata" class="btn btn-primary" type="button" (click)="sendData()">Upload</button>
+    </div>
+
+    <div *ngIf="!showdata" class="alert alert-info"> Data is uploading Please wait ..
+        <div class="spinner-border text-info" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="!uploading">
+    <div class="col">
+
+        <div class="row justify-content-center">
+            <strong>Summary of Upload</strong>
+        </div>
+        <div class="form-row">
+            <div class="col-6 col-md-6 col-lg-6" style="font-weight:bold">Company Name</div>
+            <div class="col-6 col-md-6 col-lg-6"> {{uploadSummary.companyName}}</div>
+        </div>
+        <div class="form-row">
+            <div class="col-6 col-md-6 col-lg-6" style="font-weight:bold">Stock Exchange </div>
+            <div class="col-6 col-md-6 col-lg-6"> {{uploadSummary.stockExchangeName}}</div>
+        </div>
+        <div class="form-row">
+            <div class="col-6 col-md-6 col-lg-6" style="font-weight:bold">Number of Resource Imported</div>
+            <div class="col-6 col-md-6 col-lg-6"> {{uploadSummary.importedResource}}</div>
+        </div>
+        <div class="form-row">
+            <div class="col-12 col-md-6 col-lg-6" style="font-weight:bold">Row number of unsuccessful</div>
+            <div class="col-12 col-md-6 col-lg-6"> {{uploadSummary.unsuccessfull.length>0?uploadSummary.unsuccessfull:'None'}}</div>
+        </div>
+        <div class="form-row">
+            <div class="col-6 col-md-6 col-lg-6">
+                <div class="form-row">
+                    <div class="col-6" style="font-weight:bold"> From Date </div>
+                    <div class="col-6"> {{uploadSummary.fromDate | date: 'dd/MM/yyyy'}}</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-6 col-lg-6">
+                <div class="form-row">
+                    <div class="col-6" style="font-weight:bold">TO Date</div>
+                    <div class="col-6"> {{uploadSummary.toDate| date: 'dd/MM/yyyy'}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="btn btn-primary" (click)="sendingback()">Done</div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="row p-3 bg-white">
+        <div class="col-12 d-flex justify-content-end">
+            <a class="btn btn-primary text-white" [routerLink]="['add']" >Add Stock Exchange</a>
+        </div>
+    </div>
+    <div class="row bg-white pt-1 pb-3 pr-3 pl-3">
+        <div class="col-12">
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Brief</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let stockExchange of stockExchangeList; let i=index">
+                        <td>{{i+1}} </td>
+                        <td>{{stockExchange.name}}</td>
+                        <td>{{stockExchange.brief}}</td>
+                        <td >
+                           {{stockExchange.remarks}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

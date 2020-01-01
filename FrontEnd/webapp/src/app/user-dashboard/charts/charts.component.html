@@ -1,0 +1,12 @@
+<div class="row bg-white p-3">
+  <div class="col-12">
+    <fusioncharts [type]="type" [width]="width" [height]="height" [dataSource]="dataSource"
+      (initialized)="init($event)">
+    </fusioncharts>
+  </div>
+</div>
+<div class="row bg-white p-3">
+  <div class="col-12">
+    <button class="btn btn-primary" (click)="onExportClick()">Export</button>
+  </div>
+</div>

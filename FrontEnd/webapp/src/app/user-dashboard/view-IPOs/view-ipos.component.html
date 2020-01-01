@@ -1,0 +1,28 @@
+    <div class="row bg-white pt-1 pb-3 pr-3 pl-3">
+        <div class="col-12">
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Company</th>
+                        <th>Stock Exchange</th>
+                        <th>Price</th>
+                        <th>Total Shares</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ipo of ipos;let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{ipo.company}}</td>
+                        <td>{{ipo.stockExchange}}</td>
+                        <td >
+                           {{ipo.price}}
+                        </td>
+                        <td>
+                            {{ipo.totalShares}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

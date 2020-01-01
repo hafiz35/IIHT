@@ -1,0 +1,38 @@
+<div class="row p-3 bg-white">
+    <div class="col-12 d-flex justify-content-end">
+        <a class="btn btn-primary" [routerLink]="['add']" >Add IPO</a>
+    </div>
+</div>
+<div class="row bg-white pt-1 pb-3 pr-3 pl-3">
+    <div class="col-12">
+        <table class="table table-responsive-sm">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Company</th>
+                    <th>Stock Exchange</th>
+                    <th>Price</th>
+                    <th>Total Shares</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ipo of ipoList">
+                    <td>{{ipo.id}}</td>
+                    <td>{{ipo.company}}</td>
+                    <td>{{ipo.stockExchange}}</td>
+                    <td >
+                       {{ipo.price}}
+                    </td>
+                    <td>
+                        {{ipo.totalShares}}
+                    </td>
+                    <td>
+                        <a class="btn btn-link" [routerLink]="[ipo.id,'edit']"><i class="material-icons">edit</i></a>
+                       
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="row bg-white p-3">
+    <div class="col-12">
+        <div class="row justify-content-end">
+            <div class="col-2 d-flex justify-content-end">
+                <button class="btn btn-primary" (click)="addExchange()">Add Company</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row bg-white mb-3">
+    <div class="col-12">
+        <form [formGroup]="companyForm" (ngSubmit)="onGenerateChartClicked()" *ngIf="stockExchanges">
+            <div formArrayName="companyStockExchange">
+                <div class="form-row" *ngFor="let control of companyStockExchange.controls; let i=index"
+                    [formGroupName]="i">
+                    <div class="form-group col-12 col-md-4">
+                        <label for="stockExchange">Stock Exchange</label>
+                        <select id="stockExchange" formControlName="stockExchange" class="form-control" (change)="loadCompanies(control, i)">
+                            <option value="" selected>Select</option>
+                            <option [value]="stockExchange.id" *ngFor="let stockExchange of stockExchanges">
+                                {{stockExchange.name}}</option>
+                        </select>
+                        <small class="validation-error"
+                            *ngIf="control.get('stockExchange').touched && control.get('stockExchange').hasError('required')">
+                            *Stock Exchange is Required
+                        </small>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label for="name">Company Name</label>
+                        <input type="text" placeholder="Enter Company Name" formControlName="name" id="name"
+                            class="form-control" (input)="populateAutoComplete(control, i)">
+                        <div class="autocompletebox" *ngIf="autoComplete[i]" style="background-color: white;">
+                            <div class="autocompletebox"
+                                style="position: absolute; z-index: 2; height: 100px; overflow-y: scroll; background-color: white;">
+                                <div class="autocomplete" *ngFor="let company of filteredCompanies[i]"
+                                    style="display: block;" (click)="loadVal(control,company.name,i)">
+                                    {{company.name}}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <small class="validation-error"
+                            *ngIf="control.get('name').touched && control.get('name').hasError('required')">
+                            *Company Name is Required
+                        </small>
+                        <small class="validation-error"
+                            *ngIf="control.get('name').touched && control.get('name').hasError('noCompany')">
+                            *Company Not Present
+                        </small>
+                    </div>
+                    <div class="form-group col-md-1 d-flex align-items-end">
+                        <button class="btn btn-primary" (click)="removeExchange(i)" [disabled]="i===0">Remove</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12 col-md-4">
+                    <label for="fromDate">From Period*</label>
+                    <input type="date" id="fromDate" formControlName="fromDate" class="form-control" />
+                    <small class="validation-error" *ngIf="fromDate.touched && fromDate.hasError('required')">
+                        *From Period is Required
+                    </small>
+                </div>
+                <div class="form-group col-12 col-md-4">
+                    <label for="toDate">To Period*</label>
+                    <input type="date" id="toDate" [min]="fromDate.value" [readOnly]="fromDate.invalid" formControlName="toDate" class="form-control" />
+                    <small class="validation-error" *ngIf="toDate.touched && toDate.hasError('required')">
+                        *To Period is Required
+                    </small>
+                </div>
+                <div class="form-group col-12 col-md-4 d-flex align-items-end">
+                    <button type="submit" [disabled]="companyForm.invalid" class="btn btn-primary">Generate Chart</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row p-3 bg-white">
+    <div class="col-12 text-center text-muted">
+        <span *ngIf="!loadingChart && !stockData">Select Companies to Generate Chart
+        </span>
+        <div class="alert alert-info text-center" *ngIf="loadingChart">
+            <div class="spinner-border" style="width: 16px; height: 16px;" role="status">
+                <span class="sr-only">Loading</span>
+            </div>
+            Chart Loading
+        </div>
+        <ng-container #chartsPlaceHolder></ng-container>
+        
+    </div>
+</div>

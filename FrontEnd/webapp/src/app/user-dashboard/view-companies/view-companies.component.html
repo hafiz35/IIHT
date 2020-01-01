@@ -1,0 +1,26 @@
+
+<div class="row bg-white pt-1 pb-3 pr-3 pl-3">
+    <div class="col-12">
+        <table class="table table-responsive-sm">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Company Name</th>
+                    <th>Stock Exchanges</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let company of companyList; let i = index">
+                    <td>{{i+1}} </td>
+                    <td>{{company.name}}</td>
+                    <td>{{getStockExchanges(company)}}
+                    </td>
+                    <td>
+                        <a class="btn btn-link" title="Edit Company" [routerLink]="[company.id,'view']" routerLinkActive="router-link-active"  >Details</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

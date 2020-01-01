@@ -1,0 +1,54 @@
+<div class="row justify-content-center mt-3 mb-3">
+        <div class="col-12 col-md-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="alert alert-success" *ngIf="editSuccess">Personal Details updated Successfully</div>
+                    <div class="alert alert-danger" *ngIf="editError">Error updating Personal Details</div>
+                    <form [formGroup]="signUpForm" (ngSubmit)="submit()">
+                        <div class="row">
+                            <div class="col-7">
+                                <h3>Personal Details</h3>
+                            </div>
+                            <div class="col-5 text-right">
+                                <button type="button" class="btn btn-primary" (click)="submit()"
+                                    [disabled]="this.signUpForm.invalid">
+                                    <i class="fas fa-edit" *ngIf="!allowEdit"></i>
+                            {{allowEdit?'Save':'Edit'}}</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12 col-lg-6">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" id="username" class="form-control"
+                                    placeholder="Enter Username" formControlName="username" [readonly]="'true'"/>
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="col-12">
+                                <label for="contact">Contact</label>
+                                <input type="text" formControlName="contact" name="contact" id="contact"
+                                    class="form-control" [readonly]="!allowEdit" placeholder="Contact" />
+                                <div class="validation-error" *ngIf="contact.hasError('required') && contact.touched">
+                                    Contact is required</div>
+                                <div class="validation-error" *ngIf="contact.hasError('pattern') && contact.touched">
+                                    Invalid Phone number
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="col-12">
+                                <label for="email">Email</label>
+                                <input type="text" formControlName="email" name="email" id="email" class="form-control" [readonly]="!allowEdit" placeholder="Email"/>
+                                <div class="validation-error" *ngIf="email.hasError('required') && email.touched">
+                                        Email is required</div>
+                                    <div class="validation-error" *ngIf="email.hasError('email')">
+                                        Invalid email-address
+                                    </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    

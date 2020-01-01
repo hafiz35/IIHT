@@ -1,0 +1,72 @@
+<div class="row p-3 bg-white">
+    <div class="col-12 text-center font-size-32">
+        Add Stock Exchange
+    </div>
+</div>
+<div class="row bg-white p-3 mb-3">
+    <div class="col-12">
+        <div class="alert alert-success" *ngIf="added && addSuccessful">Stock Exchange Added Successfully</div>
+        <div class="alert alert-danger" *ngIf="added && !addSuccessful">Error adding Stock Exchange</div>
+        <form [formGroup]="stockExchangeForm" (ngSubmit)="addStockExchange()">
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="name">Stock Exchange Name</label>
+                    <input type="text" formControlName="name" id="name" placeholder="Enter Name" class="form-control">
+                    <small class="validation-error" *ngIf="name.touched && name.hasError('required')">
+                        *Name is required
+                    </small>
+                    <small class="validation-error" *ngIf="name.touched && name.hasError('maxLength')">
+                        *Name cannot be greater than 45 characters
+                    </small>
+                    <small class="validation-error" *ngIf="name.touched && name.hasError('pattern')">
+                        *Name can only have letters and numbers
+                    </small>
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <label for="brief">Brief</label>
+                    <textarea formControlName="brief" id="brief" rows="4" class="form-control" maxlength="100"
+                        placeholder="Enter Brief" required></textarea>
+                        <small class="validation-error" *ngIf="brief.touched && brief.hasError('required')">
+                            *Brief is required
+                        </small>
+                        <small class="validation-error" *ngIf="brief.touched && brief.hasError('maxLength')">
+                            *Breif cannot be greater than 100 characters
+                        </small>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="contactAddress">Contact Address</label>
+                    <input type="text" formControlName="contactAddress" placeholder="Enter Contact Address"
+                        id="contactAddress" class="form-control">
+                        <small class="validation-error" *ngIf="contactAddress.touched && contactAddress.hasError('required')">
+                            *Contact Address is required
+                        </small>
+                        <small class="validation-error" *ngIf="contactAddress.touched && contactAddress.hasError('maxLength')">
+                            *Contact Address cannot be greater than 255 characters
+                        </small>
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="remarks">Remarks</label>
+                    <input type="text" placeholder="Enter Remarks" formControlName="remarks" id="remarks"
+                        class="form-control" />
+                        <small class="validation-error" *ngIf="remarks.touched && remarks.hasError('maxLength')">
+                            *Remarks cannot be greater than 50 characters
+                        </small>
+                        <small class="validation-error" *ngIf="remarks.touched && remarks.hasError('required')">
+                            *Remarks is required
+                        </small>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <button type="submit" class="btn btn-primary" [disabled]="stockExchangeForm.invalid">Add Stock
+                        Exchange</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

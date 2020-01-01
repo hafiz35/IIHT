@@ -1,0 +1,79 @@
+<div class="alert alert-danger" *ngIf="check">
+Data Edited
+</div>
+<div class="row p-3 bg-white">
+    <div class="col-12 text-center font-size-32">
+        Edit IPO
+    </div>
+</div>
+<div class="row bg-white p-3 mb-3">
+    <div class="col-12">
+        <form [formGroup]="ipoForm" (ngSubmit)="editIpo()">
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="stockExchange">Select Stock Exchange</label>
+                    <select  id="stockExchange" formControlName="stockExchange" class="form-control"  (change)="loadCompanies()">
+                        <option [value]="stockExchange.id" *ngFor="let stockExchange of stockExchanges">
+                            {{stockExchange.name}}</option>
+                    </select>
+                    <small class="validation-error" *ngIf="stockExchange.touched && stockExchange.hasError('required')">
+                        *Stock Exchange is required.
+                    </small>
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="company">Select Company</label>
+                    <select id="company" formControlName="company" [disabled]="stockExchange.invalid" class="form-control">
+                        <option [value]="company.id" *ngFor="let company of allCompanies">
+                            {{company.name}}</option>
+                    </select>
+                    <small class="validation-error" *ngIf="company.touched && company.hasError('required')">
+                        *Company is required.
+                    </small>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="price">Stock Price</label>
+                    <input type="text" formControlName="price" placeholder="Enter Stock Price" id="price" class="form-control">
+                    <small class="validation-error" *ngIf="price.touched && price.hasError('required')">
+                        *Price is required.
+                    </small>
+                    <small class="validation-error" *ngIf="price.touched && price.hasError('pattern')">
+                        *Price can only be a number.
+                    </small>
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="totalShares">Total Shares</label>
+                    <input type="text" formControlName="totalShares" placeholder="Enter Total number of shares" id="totalShares" class="form-control">
+                    <small class="validation-error" *ngIf="totalShares.touched && totalShares.hasError('required')">
+                        *Total Shares is required.
+                    </small>
+                    <small class="validation-error" *ngIf="totalShares.touched && totalShares.hasError('pattern')">
+                        *Total Shares can only be natural number e.g. 1,2....
+                    </small>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="openDate">Open Date</label>
+                    <input type="date" formControlName="openDate" class="form-control" id="openDate" />
+                    <small class="validation-error" *ngIf="openDate.touched && openDate.hasError('required')">
+                        *Open Date is required.
+                    </small>
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="remarks">Remarks</label>
+                    <input type="text" formControlName="remarks" id="remarks" class="form-control" placeholder="Enter remarks" />
+                    <small class="validation-error" *ngIf="remarks.touched && remarks.hasError('required')">
+                        *Remarks is required.
+                    </small>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <button type="submit" class="btn btn-primary">Edit IPO</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,124 @@
+<div class="row p-3 bg-white">
+  <div class="col-12 text-center font-size-32">
+    Add Company
+  </div>
+</div>
+<div class="row bg-white p-3 mb-3">
+  <div class="col-12">
+    <div class="alert alert-success" *ngIf="companyAdded">
+      Company added successfully.
+    </div>
+    <form [formGroup]="companyForm" (ngSubmit)="addCompany()">
+      <div class="form-row">
+        <div class="form-group col-12 col-md-6">
+          <label for="name">Company Name*</label>
+          <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter Company Name" />
+          <small class="validation-error" *ngIf="name.touched && name.hasError('required')">
+            *Name is Required
+          </small>
+          <small class="validation-error" *ngIf="name.touched && name.hasError('companyExists')">
+            *Company Name is already Taken
+          </small>
+        </div>
+        <div class="form-group col-12 col-md-6">
+          <label for="ceo">CEO Name</label>
+          <input type="text" id="ceo" formControlName="ceo" class="form-control" placeholder="Enter CEO Name" />
+          <small class="validation-error" *ngIf="ceo.touched && ceo.hasError('required')">
+            *CEO Name is Required
+          </small>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-12">
+          <label for="brief">Brief</label>
+          <textarea id="brief" class="form-control"
+            placeholder="Enter brief for company(Max 100 characters)" formControlName="brief"></textarea>
+          <small class="validation-error" *ngIf="brief.touched && brief.hasError('required')">
+            *Brief is Required
+          </small>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-12 col-md-4">
+          <label for="board">Board Of Directors</label>
+          <input type="text" formControlName="boardOfDirectors" class="form-control"
+            placeholder="Enter Board of directors" />
+          <small class="validation-error" *ngIf="boardOfDirectors.touched && boardOfDirectors.hasError('required')">
+            *Board of Directors is Required
+          </small>
+        </div>
+        <div class="form-group col-12 col-md-4">
+          <label for="turnover">Turnover</label>
+          <input type="text" id="turnover" formControlName="turnover" class="form-control"
+            placeholder="Enter turnover" />
+          <small class="validation-error" *ngIf="turnover.touched && turnover.hasError('required')">
+            *Turnover is Required
+          </small>
+          <small class="validation-error" *ngIf="turnover.touched && turnover.hasError('pattern')">
+            *Turnover should be a number
+          </small>
+
+        </div>
+        <div class="form-group col-12 col-md-4">
+          <label for="sector">Sector</label>
+          <select id="sector" class="form-control" formControlName="sector">
+            <option value="" selected>Select</option>
+            <option *ngFor="let sectorObj of sectors" [value]="sectorObj.id">{{sectorObj.name}}</option>
+          </select>
+          <small class="validation-error" *ngIf="sector.touched && sector.hasError('required')">
+            *Sector is Required
+          </small>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-10 font-size-22 ">
+          Select Stock Exchanges and Stock Code
+        </div>
+        <div class="col-2 d-flex justify-content-end">
+          <button class="btn btn-primary" (click)="addExchange()"
+            [disabled]="stockCodes.controls.length === stockExchanges?.length">Add Exchange</button>
+        </div>
+      </div>
+      <div formArrayName="stockCodes">
+        <div class="form-row" *ngFor="let control of stockCodes.controls; let i=index" [formGroupName]="i">
+          <div class="form-group col-12 col-md-6">
+            <label for="exchange">Stock Exchange</label>
+            <select id="exchange" formControlName="exchange" class="form-control"
+              (change)="selectStockExchange($event,i)">
+              <option value="" selected>Select</option>
+              <option [value]="stockExchangeObj.id" *ngFor="let stockExchangeObj of stockExchanges"
+                [disabled]="isAlreadySelected(stockExchangeObj)">{{stockExchangeObj.name}}</option>
+
+            </select>
+            <small class="validation-error"
+              *ngIf="control.get('exchange').touched && control.get('exchange').hasError('required')">
+              *Stock Exchange is Required
+            </small>
+          </div>
+          <div class="form-group col-12 col-md-4">
+            <label for="stockCode">Stock Code</label>
+            <input type="text" placeholder="Enter Stock Code" formControlName="stockCode" id="stockCode"
+              class="form-control" [readOnly]="control.get('exchange').invalid">
+            <small class="validation-error"
+              *ngIf="control.get('stockCode').touched && control.get('stockCode').hasError('required')">
+              *Stock Code is Required
+            </small>
+            <small class="validation-error"
+              *ngIf="control.get('stockCode').touched && control.get('stockCode').hasError('codeTaken')">
+              *Stock Code is already Taken
+            </small>
+          </div>
+          <div class="form-group col-md-1 d-flex align-items-center pt-4">
+            <button class="btn btn-link" (click)="removeExchange(i)" [disabled]="i===0"> <i
+                class="material-icons">delete_forever</i> </button>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-12">
+          <button [disabled]="companyForm.invalid" type="submit" class="btn btn-primary">Add Company</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

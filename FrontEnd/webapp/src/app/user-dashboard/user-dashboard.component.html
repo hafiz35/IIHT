@@ -1,0 +1,30 @@
+<div class="row pt-3 mb-1 bg-white">
+        <div class="col-12 d-flex justify-content-center ">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-companies" data-toggle="pill" routerLink="view-companies"
+                       routerLinkActive="active"  role="tab" aria-controls="pills-companies" aria-selected="true">Companies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-ipo" data-toggle="pill" routerLink="view-ipos"
+                       routerLinkActive="active"  role="tab" aria-controls="pills-ipos" aria-selected="true">IPOs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-compare-companies" data-toggle="pill" routerLink="compare-companies"
+                    routerLinkActive="active"role="tab" aria-controls="pills-compare-companies" aria-selected="false">Compare Company</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-compare-sectors" data-toggle="pill" routerLink="compare-sectors"
+                    routerLinkActive="active" role="tab" aria-controls="pills-compare-sectors" aria-selected="false">Compare Sectors</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row tab-content">
+        <div class="col-12">
+            <div class=" fade show" role="tabpanel">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+    <!-- <app-chart></app-chart> -->

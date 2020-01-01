@@ -1,0 +1,66 @@
+<div class="row bg-white pt-1 pb-3 pr-3 pl-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h2>{{currentCompany.name | uppercase }}</h2>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 col-md-6 col-lg-3">
+                <h4>
+                    Brief
+                </h4>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <h4>
+                    TurnOver
+                </h4>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <h4>
+                    CEO
+                </h4>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <h4>
+                    Sector
+                </h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-3">
+                {{currentCompany.brief}}
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                {{currentCompany.turnover}}
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                {{currentCompany.ceo}}
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                {{currentCompany.sector}}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <h3>
+                    Stock Details
+                </h3>
+            </div>
+        </div>
+        <table class="table table-responsive-sm">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Stock Exchange</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let stockCode of currentCompany.stockCodes;let i=index">
+                    <td>{{stockCode.code}}</td>
+                    <td>{{stockCode.stockExchangeName}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

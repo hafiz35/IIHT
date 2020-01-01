@@ -1,0 +1,30 @@
+<div class="row pt-3 mb-1 bg-white">
+    <div class="col-12 d-flex justify-content-center ">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" id="pills-import-data-tab" data-toggle="pill" routerLink="import-data"
+                   routerLinkActive="active"  role="tab" aria-controls="pills-import-data" aria-selected="true">Import Data</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-manage-companies-tab" data-toggle="pill" routerLink="manage-companies"
+                routerLinkActive="active"role="tab" aria-controls="pills-profile" aria-selected="false">Manage Companies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" routerLink="manage-stock-exchanges"
+                routerLinkActive="active" role="tab" aria-controls="pills-contact" aria-selected="false">Manage Stock Exchanges</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" routerLink="update-ipo" role="tab"
+                routerLinkActive="active"  aria-controls="pills-contact" aria-selected="false">Update IPO details</a>
+            </li>
+        </ul>
+
+    </div>
+</div>
+<div class="row tab-content">
+    <div class="col-12">
+        <div class=" fade show" role="tabpanel">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

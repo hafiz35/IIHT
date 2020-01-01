@@ -1,0 +1,78 @@
+<div class="row bg-white p-3">
+    <div class="col-12">
+        <div class="row justify-content-end">
+            <div class="col-2 d-flex justify-content-end">
+                <button class="btn btn-primary" (click)="addExchange()">Add Sector</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row bg-white mb-3">
+    <div class="col-12">
+        <form [formGroup]="sectorForm" (ngSubmit)="onGenerateChartClicked()">
+            <div formArrayName="sectorStockExchange">
+                <div class="form-row" *ngFor="let control of sectorStockExchange.controls; let i=index"
+                    [formGroupName]="i">
+                    <div class="form-group col-12 col-md-4">
+                        <label for="stockExchange">Stock Exchange</label>
+                        <select id="stockExchange" formControlName="stockExchange" class="form-control" >
+                            <option value="" selected>Select</option>
+                            <option [value]="stockExchange.id" *ngFor="let stockExchange of stockExchanges">{{stockExchange.name}}</option>
+                        </select>
+                        <small class="validation-error"
+                            *ngIf="control.get('stockExchange').touched && control.get('stockExchange').hasError('required')">
+                            *Stock Exchange is Required
+                        </small>
+                    </div>
+                    <div class="form-group col-12 col-md-4">
+                        <label for="name">Sector</label>
+                        <select id="name" formControlName="name" class="form-control" >
+                            <option value="" selected>Select</option>
+                            <option [value]="sector.id" *ngFor="let sector of sectors">{{sector.name}}</option>
+                        </select>
+                        <small class="validation-error"
+                            *ngIf="control.get('name').touched && control.get('name').hasError('required')">
+                            *Sector Name is Required
+                        </small>
+                    </div>
+                    <div class="form-group col-md-1 d-flex align-items-end">
+                        <button class="btn btn-primary" (click)="removeExchange(i)" [disabled]="i===0">Remove</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12 col-md-4">
+                    <label for="fromDate">From Period*</label>
+                    <input type="date" id="fromDate" formControlName="fromDate" class="form-control" />
+                    <small class="validation-error" *ngIf="fromDate.touched && fromDate.hasError('required')">
+                        *From Period is Required
+                    </small>
+                </div>
+                <div class="form-group col-12 col-md-4">
+                    <label for="toDate">To Period*</label>
+                    <input type="date" id="toDate" [min]="fromDate.value" [readOnly]="fromDate.invalid" formControlName="toDate" class="form-control" />
+                    <small class="validation-error" *ngIf="toDate.touched && toDate.hasError('required')">
+                        *To Period is Required
+                    </small>
+                </div>
+                <div class="form-group col-12 col-md-4 d-flex align-items-end">
+                    <button class="btn btn-primary" [disabled]="sectorForm.invalid">Generate Chart</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row p-3 bg-white">
+    <div class="col-12 text-center text-muted">
+        <span *ngIf="!loadingChart && !stockData">Select Sectors to Generate Chart
+        </span>
+        <div class="alert alert-info text-center" *ngIf="loadingChart">
+            <div class="spinner-border" style="width: 16px; height: 16px;" role="status">
+                <span class="sr-only">Loading</span>
+            </div>
+            Chart Loading
+        </div>
+        <ng-container #chartsPlaceHolder></ng-container>
+        
+    </div>
+</div>
